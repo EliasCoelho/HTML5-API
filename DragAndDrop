@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Drag and Drop with HTML5 API interface</title>
+	</head>
+	<body>
+		<div draggable="true" ondragstart="handleDrag(event)">
+			<b>Some content</b> to be dragged.
+		</div>
+		<script type="text/javascript">
+			function handleDrag(event) {
+				event.dataTransfer.effectAllowed = "copy";
+				event.dataTransfer.setData("text", event.target.innerHTML);
+			}
+
+			function handleDragOver(event) {
+				event.stopPropagation();
+				event.preventDefault();
+				event.dataTransfer.dropEffect = "copy"; // Display a "copy" cursor
+			}
+
+			function handleDrop(event) {
+				event.stopPropagation();
+				event.preventDefault();
+				event.target.innerHTML = event.dataTransfer.getData("text");
+			}
+		</script>
+
+		<input ondragover="handleDragOver(event)" ondrop="handleDrop(event)" />
+	</body>
+</html>
